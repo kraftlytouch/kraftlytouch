@@ -672,7 +672,67 @@ html.returning .slide{display:none}
 .lifestyle .sec-top{padding-inline:var(--pad)}
 .life-row{display:flex;gap:clamp(10px,1.4vw,18px);overflow-x:auto;padding:0 var(--pad) 12px;scroll-snap-type:x mandatory;scrollbar-width:thin}
 .life-row img{flex:none;height:clamp(260px,38vw,460px);width:auto;border-radius:8px;scroll-snap-align:start;background:var(--card)}
-.d-img{background:var(--bg) 0 0/100% 100% no-repeat;border-radius:6px}
+.d-img{background:none}
+.drum{perspective:780px}
+@media (max-width:860px){.drum{perspective:520px}}
+.d-cap{transform-origin:50% 50%}
+/* WebGL tunnel */
+#drumGL{position:absolute;inset:0;width:100%;height:100%}
+.drum.gl-on .d-img,.drum.gl-on .d-cap{opacity:0}
+.drum.gl-on .d-strip{display:none}
+.drum.gl-on{perspective:none}
+.drum-fx{z-index:1}
+.drum-head,.filter-pill{z-index:4}
+.drum{position:relative;z-index:2}
+/* arches like the reference */
+.wall{width:clamp(22px,7vw,110px);background:
+  linear-gradient(90deg,rgba(255,255,255,.0),rgba(255,255,255,.75) 45%,rgba(214,207,198,.9) 100%);
+  opacity:.8}
+.wall-l{border-radius:0 999px 0 0/0 60px 0 0;box-shadow:inset -6px 0 12px rgba(21,17,14,.08)}
+.drum-fx::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 60% at 50% -8%,rgba(255,255,255,.55),transparent 55%)}
+
+/* ===== Unseen-style pinned window ===== */
+.drum-sec{padding:clamp(60px,9vw,120px) 0 0;background:#E9E6E1}
+.drum-track{position:relative;height:300vh}
+.drum-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(140% 90% at 50% 45%,#F3F1EE 0%,#E4E0DA 70%,#D8D3CC 100%)}
+.drum-stage .drum-fx{position:absolute;inset:0;height:auto;margin:0;z-index:0}
+.drum-stage .drum{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0;width:min(760px,calc(100% - 36px));gap:clamp(22px,3vw,40px);will-change:transform;transform:translate3d(0,var(--off,0px),0);z-index:2}
+.drum-stage .d-img{border-radius:4px}
+.drum-stage .d-cap{grid-template-columns:1fr auto;gap:1px 10px;padding-bottom:9px;border-bottom:1px solid rgba(21,17,14,.55)}
+.drum-stage .d-name{font:500 .92rem/1.2 var(--sans);letter-spacing:0}
+.drum-stage .d-sub{font-size:.78rem}
+.drum-stage .d-arrow{transform:none;font-size:.9rem}
+.stage-frame{position:absolute;inset:clamp(6px,1.2vw,14px);border-radius:clamp(22px,4vw,48px);box-shadow:0 0 0 60px #E9E6E1,inset 0 0 40px rgba(255,255,255,.7);pointer-events:none;z-index:5}
+.stage-brand{position:absolute;left:0;right:0;top:calc(18px + env(safe-area-inset-top,0px));text-align:center;font:500 clamp(1.5rem,4vw,2.2rem)/1 var(--display);letter-spacing:-.04em;color:var(--ink);z-index:6;pointer-events:none}
+.drum-stage .filter-pill{position:absolute;left:0;right:0;top:calc(62px + env(safe-area-inset-top,0px));height:auto;z-index:7}
+.drum-stage .filter-pill>button{transform:none}
+.pillar-l,.pillar-r{position:absolute;top:8%;bottom:-2%;width:clamp(26px,8vw,120px);z-index:1;opacity:.9;
+  background:linear-gradient(90deg,rgba(255,255,255,.2),#fff 40%,#DDD8D1 100%);border-radius:999px 999px 0 0;box-shadow:0 20px 40px -10px rgba(21,17,14,.15)}
+.pillar-l{left:clamp(-12px,-1vw,0px)}
+.pillar-r{right:clamp(-12px,-1vw,0px);transform:scaleX(-1)}
+.drum-stage .wall{display:none}
+/* hide page header while inside the window so it looks like Unseen */
+.head.in-stage{transform:translateY(-120%)}
+@media (max-width:860px){.drum-stage .drum{width:calc(100% - 28px)}}
+.drum-stage #drumGL{z-index:2;position:absolute}.drum-stage #shavings{z-index:3;position:absolute;inset:0}.pillar-l,.pillar-r{z-index:1}
+
+/* ===== Curved 3D carousel (dark) ===== */
+.curve-sec{background:#0B0908;padding:0}
+.curve-sec .drum-track{height:420vh}
+.curve-sec .drum-stage{background:radial-gradient(120% 90% at 50% 50%,#1A1512 0%,#0B0908 70%);cursor:grab;touch-action:pan-y}
+.curve-sec .drum-stage.dragging{cursor:grabbing}
+.curve-sec #drumGL{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.cv-ui{position:absolute;inset:0;z-index:3;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:calc(76px + env(safe-area-inset-top,0px)) var(--pad) calc(26px + env(safe-area-inset-bottom,0px));color:#F3EEE7}
+.cv-ui-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.cv-ui-title{font:500 clamp(1.5rem,3vw,2.4rem)/1 var(--display);letter-spacing:-.03em;color:#F3EEE7}
+.cv-ui-title sup{font:500 .8rem var(--mono);color:rgba(243,238,231,.55);margin-left:4px}
+.curve-sec .filter-pill{position:relative;top:auto;height:auto;pointer-events:auto;display:block}
+.curve-sec .filter-pill>button{transform:none;background:rgba(255,255,255,.1);color:#F3EEE7;box-shadow:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.curve-sec .filter-menu{right:0;left:auto}
+.cv-ui-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font:500 .78rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(243,238,231,.6)}
+.cv-ui-name{color:#F3EEE7}
+.curve-sec .drum.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.head.in-stage{transform:none}
 
 </style>
 <script>document.documentElement.classList.add("js");</script>
@@ -768,13 +828,14 @@ html.returning .slide{display:none}
 </div>
 
 <!-- ============ COLLECTIONS (rolling drum) ============ -->
-<section class="drum-sec" id="collections" aria-labelledby="colTitle">
-  <div class="drum-fx" aria-hidden="true"><canvas id="shavings"></canvas><span class="wall wall-l"></span><span class="wall wall-r"></span></div>
-  <div class="drum-head">
-    <p class="label">(Our collections)</p>
-    <h2 class="drum-title" id="colTitle"><em>Nine</em> collections<sup id="colCount">(09)</sup></h2>
-  </div>
-  <div class="filter-pill" id="filterPill">
+<section class="drum-sec curve-sec" id="collections" aria-labelledby="colTitle">
+  <div class="drum-track" id="drumTrack">
+    <div class="drum-stage" id="drumStage">
+      <canvas id="drumGL" aria-hidden="true"></canvas>
+      <div class="cv-ui">
+        <div class="cv-ui-top">
+          <h2 class="cv-ui-title" id="colTitle">Collections <sup id="colCount">(09)</sup></h2>
+          <div class="filter-pill" id="filterPill">
     <button type="button" id="filterBtn" aria-expanded="false" aria-controls="filterMenu" data-cursor="Filter"><span id="filterLabel">Filter</span> <i aria-hidden="true">⌄</i></button>
     <div class="filter-menu" id="filterMenu" hidden role="menu">
       <button type="button" role="menuitemradio" data-f="" aria-checked="true">All</button>
@@ -784,7 +845,15 @@ html.returning .slide{display:none}
       <button type="button" role="menuitemradio" data-f="decor" aria-checked="false">Décor</button>
     </div>
   </div>
-  <ol class="drum" id="drum"></ol>
+        </div>
+        <div class="cv-ui-bottom">
+          <span class="cv-ui-name" id="curName"></span>
+          <span class="cv-ui-hint">Drag or scroll ⟷</span>
+        </div>
+      </div>
+      <ol class="drum sr" id="drum"></ol>
+    </div>
+  </div>
 </section>
 
 <!-- page-change letters -->
@@ -1243,7 +1312,8 @@ function IMG(p){return (window.KT_IMGMAP&&KT_IMGMAP[p])||p;}
     if (sr.bottom < -50 || sr.top > vh + 50 || reduce) return;
     var sy = window.scrollY, dTop = drum.getBoundingClientRect().top;
     drum.style.setProperty("--po", (vh * 0.5 - dTop).toFixed(0) + "px");
-    var Z0 = vh * 0.34, R = vh * 0.26, Z1 = vh * 0.9, R2 = vh * 0.5, MAX = Math.PI * 0.62;
+    var small = window.innerWidth < 861;
+    var Z0 = vh * (small ? 0.4 : 0.4), R = vh * (small ? 0.27 : 0.26), Z1 = vh * (small ? 0.8 : 0.82), R2 = vh * 0.7, MAX = Math.PI * 0.6;
     var ca = fine ? clamp(Math.abs(vel) * 0.12, 0, 2.5) : 0;
     drum.style.setProperty("--ca", (vel > 0 ? ca : -ca).toFixed(1) + "px");
     for (var i = 0; i < drumEls.length; i++) {
@@ -1255,7 +1325,7 @@ function IMG(p){return (window.KT_IMGMAP&&KT_IMGMAP[p])||p;}
         t = "translate3d(0," + (yy - y).toFixed(1) + "px," + z.toFixed(1) + "px) rotateX(" + (th * 57.3).toFixed(2) + "deg)";
         d.el.style.opacity = th >= MAX ? 0 : 1;
       } else if (y > Z1) {
-        var th2 = Math.min((y - Z1) / R2, 1);
+        var th2 = Math.min((y - Z1) / R2, 0.7);
         var yy2 = Z1 + R2 * Math.sin(th2), z2 = -R2 * (1 - Math.cos(th2));
         t = "translate3d(0," + (yy2 - y).toFixed(1) + "px," + z2.toFixed(1) + "px) rotateX(" + (-th2 * 57.3).toFixed(2) + "deg)";
         d.el.style.opacity = 1;
@@ -1267,13 +1337,186 @@ function IMG(p){return (window.KT_IMGMAP&&KT_IMGMAP[p])||p;}
     var im = new Image();
     im.onload = function () {
       var card = drum.querySelector('[data-id="' + c.id + '"] .d-img');
-      if (card && im.naturalWidth) { card.style.aspectRatio = im.naturalWidth + " / " + im.naturalHeight; measureDrum(); }
+      if (card && im.naturalWidth) { card.style.aspectRatio = im.naturalWidth + " / " + im.naturalHeight; sizeTrack(); }
     };
     im.src = catImg(c);
   });
   window.addEventListener("resize", function () { measureDrum(); });
   window.addEventListener("load", measureDrum);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureDrum);
+
+
+  /* =============== COLLECTIONS — curved 3D carousel =============== */
+  var dTrack = $("#drumTrack"), dStage = $("#drumStage"), curName = $("#curName");
+  function sizeTrack() { if (carousel) carousel.resize(); }
+  var carousel = (function () {
+    var cv = $("#drumGL"), gl = null;
+    try { gl = cv.getContext("webgl", { alpha: false, antialias: true, premultipliedAlpha: true }); } catch (e) { gl = null; }
+    if (!gl) { dStage.classList.add("no-gl"); return null; }
+    var VS = [
+      "attribute vec2 a_uv;",
+      "uniform float u_a0, u_span, u_h, u_R, u_tx, u_ty, u_yaw, u_roll, u_time, u_wave;",
+      "varying vec2 v_uv; varying float v_shade;",
+      "void main(){",
+      "  float phi = u_a0 + a_uv.x * u_span;",
+      "  float X = u_R * sin(phi); float Z = -u_R * cos(phi);",
+      "  float Y = (0.5 - a_uv.y) * u_h;",
+      "  Y += u_wave * sin(phi * 2.3 + u_time * 0.7) + u_wave * 0.6 * sin(phi * 4.1 - u_time * 0.5) * (a_uv.y - 0.5) * 2.0;",
+      "  float cy = cos(u_yaw), sy = sin(u_yaw);",
+      "  float X2 = X * cy - Z * sy; float Z2 = X * sy + Z * cy;",
+      "  float cr = cos(u_roll), sr = sin(u_roll);",
+      "  float X3 = X2 * cr - Y * sr; float Y3 = X2 * sr + Y * cr;",
+      "  float d = max(0.05, -Z2);",
+      "  v_uv = a_uv; v_shade = clamp(1.15 - (d / u_R) * 0.25, 0.7, 1.0);",
+      "  gl_Position = vec4((X3 / d) / u_tx, (Y3 / d) / u_ty, 0.5, 1.0);",
+      "}"].join("\n");
+    var FS = [
+      "precision mediump float;",
+      "uniform sampler2D u_tex; uniform float u_hover;",
+      "varying vec2 v_uv; varying float v_shade;",
+      "void main(){",
+      "  vec4 c = texture2D(u_tex, v_uv);",
+      "  c.rgb *= v_shade + u_hover * 0.06;",
+      "  gl_FragColor = c;",
+      "}"].join("\n");
+    function sh(t, s) { var o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; }
+    var prog;
+    try { prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog); if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw 0; }
+    catch (e) { dStage.classList.add("no-gl"); return null; }
+    gl.useProgram(prog);
+    var NX = 40, NY = 10, verts = [], idx = [];
+    for (var y = 0; y <= NY; y++) for (var x = 0; x <= NX; x++) verts.push(x / NX, y / NY);
+    for (y = 0; y < NY; y++) for (x = 0; x < NX; x++) { var i0 = y * (NX + 1) + x; idx.push(i0, i0 + 1, i0 + NX + 1, i0 + 1, i0 + NX + 2, i0 + NX + 1); }
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(idx), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, "a_uv"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var U = {}; ["u_a0", "u_span", "u_h", "u_R", "u_tx", "u_ty", "u_yaw", "u_roll", "u_time", "u_wave", "u_tex", "u_hover"].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+
+    var R = 10, S, G, H, TX, TY, small, cards = [], all = [];
+    var tc = document.createElement("canvas"), tx = tc.getContext("2d");
+    function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+    function paint(card) {
+      var ar = (R * S) / H, TW = 1024, TH = Math.round(TW / ar);
+      tc.width = TW; tc.height = TH;
+      tx.clearRect(0, 0, TW, TH);
+      var rad = TW * 0.035;
+      tx.save(); rr(tx, 3, 3, TW - 6, TH - 6, rad); tx.clip();
+      tx.fillStyle = "#2a221c"; tx.fillRect(0, 0, TW, TH);
+      if (card.im && card.im.naturalWidth) {
+        var iw = card.im.naturalWidth, ih = card.im.naturalHeight, sc = Math.max(TW / iw, TH / ih);
+        tx.drawImage(card.im, (TW - iw * sc) / 2, (TH - ih * sc) / 2, iw * sc, ih * sc);
+      }
+      var g = tx.createLinearGradient(0, TH * 0.55, 0, TH); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.62)");
+      tx.fillStyle = g; tx.fillRect(0, 0, TW, TH);
+      var gl2 = tx.createLinearGradient(0, 0, TW, TH); gl2.addColorStop(0, "rgba(255,255,255,.10)"); gl2.addColorStop(.45, "rgba(255,255,255,0)"); gl2.addColorStop(1, "rgba(255,255,255,.06)");
+      tx.fillStyle = gl2; tx.fillRect(0, 0, TW, TH);
+      var fs = Math.round(TW * (small ? 0.09 : 0.045));
+      tx.fillStyle = "#fff"; tx.textBaseline = "alphabetic";
+      tx.font = "600 " + fs + "px 'Bricolage Grotesque','Hanken Grotesk',Arial,sans-serif";
+      tx.fillText(card.c.name, TW * 0.05, TH - TW * 0.06);
+      tx.font = "500 " + Math.round(fs * 0.5) + "px 'IBM Plex Mono',monospace";
+      tx.fillStyle = "rgba(255,255,255,.75)";
+      tx.fillText((counts[card.c.id] + " PIECES · " + card.sub).toUpperCase(), TW * 0.05, TH - TW * 0.06 - fs * 1.15);
+      var cr = TW * (small ? 0.065 : 0.036), cx0 = TW - TW * 0.05 - cr, cy0 = TH - TW * 0.05 - cr;
+      tx.fillStyle = "rgba(0,0,0,.55)"; tx.beginPath(); tx.arc(cx0, cy0, cr, 0, 7); tx.fill();
+      tx.strokeStyle = "#fff"; tx.lineWidth = cr * 0.12; tx.lineCap = "round";
+      tx.beginPath(); tx.moveTo(cx0 - cr * 0.42, cy0); tx.lineTo(cx0 + cr * 0.4, cy0); tx.moveTo(cx0 + cr * 0.08, cy0 - cr * 0.34); tx.lineTo(cx0 + cr * 0.42, cy0); tx.lineTo(cx0 + cr * 0.08, cy0 + cr * 0.34); tx.stroke();
+      tx.restore();
+      tx.strokeStyle = "rgba(255,255,255,.35)"; tx.lineWidth = 3; rr(tx, 3, 3, TW - 6, TH - 6, rad); tx.stroke();
+      gl.bindTexture(gl.TEXTURE_2D, card.tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      card.painted = true;
+    }
+    CATS.forEach(function (c) {
+      var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([40, 32, 26, 255]));
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      var card = { c: c, tex: t, im: new Image(), sub: woodsOf(c.id).slice(0, 2).join(", ") };
+      card.im.onload = function () { paint(card); };
+      card.im.src = catImg(c);
+      all.push(card);
+    });
+    function setup() {
+      small = window.innerWidth < 861;
+      var aspect = cv.clientWidth / Math.max(1, cv.clientHeight);
+      S = small ? 0.42 : 0.56; G = small ? 0.035 : 0.04;
+      var fovx = small ? 0.8 : 1.75;               // wide lens = bigger cards at the edges
+      TX = Math.tan(fovx / 2); TY = TX / aspect;
+      H = small ? R * S * 1.5 : R * S * 0.74;
+      cards = all.filter(function (k) { return !drum.querySelector('[data-id="' + k.c.id + '"]').classList.contains("gone"); });
+      all.forEach(function (k) { if (k.im.naturalWidth) paint(k); });
+      dTrack.style.height = (Math.max(2, cards.length) * (small ? 55 : 45) + 100) + "vh";
+    }
+    var pos = 0, target = 0, drag = 0, dragging = false, lastX = 0, moved = 0, velX = 0, t0 = performance.now(), hover = -1;
+    function stepAngle() { return S + G; }
+    function frame() {
+      var vh = window.innerHeight, sr = dStage.getBoundingClientRect();
+      if (sr.bottom < 0 || sr.top > vh) return;
+      var dpr = Math.min(2, window.devicePixelRatio || 1);
+      if (cv.width !== Math.round(cv.clientWidth * dpr) || cv.height !== Math.round(cv.clientHeight * dpr)) { cv.width = Math.round(cv.clientWidth * dpr); cv.height = Math.round(cv.clientHeight * dpr); setup(); }
+      var tr = dTrack.getBoundingClientRect(), span = Math.max(1, dTrack.offsetHeight - vh);
+      var p = clamp(-tr.top / span, 0, 1), maxPos = (cards.length - 1) * stepAngle();
+      if (!dragging) drag *= 0.985;
+      target = clamp(p * maxPos + drag, -stepAngle() * 0.4, maxPos + stepAngle() * 0.4);
+      var prev = pos; pos += (target - pos) * (reduce ? 1 : 0.09); var v = pos - prev;
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.clearColor(0.043, 0.035, 0.031, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      var time = (performance.now() - t0) / 1000;
+      gl.uniform1f(U.u_R, R); gl.uniform1f(U.u_span, S); gl.uniform1f(U.u_h, H);
+      gl.uniform1f(U.u_tx, TX); gl.uniform1f(U.u_ty, TY);
+      gl.uniform1f(U.u_yaw, (small ? -0.05 : -0.12) + clamp(v * 3, -0.08, 0.08));
+      gl.uniform1f(U.u_roll, small ? -0.02 : -0.035);
+      gl.uniform1f(U.u_time, reduce ? 0 : time);
+      gl.uniform1f(U.u_wave, R * (small ? 0.035 : 0.05) + Math.min(0.6, Math.abs(v) * 8));
+      var ci = clamp(Math.round(pos / stepAngle()), 0, cards.length - 1);
+      if (cards[ci] && curName.textContent !== cards[ci].c.name) curName.textContent = (ci + 1 < 10 ? "0" : "") + (ci + 1) + " — " + cards[ci].c.name;
+      for (var i = 0; i < cards.length; i++) {
+        var a0 = i * stepAngle() - pos - S / 2;
+        if (a0 > 1.9 || a0 + S < -1.9) continue;
+        gl.bindTexture(gl.TEXTURE_2D, cards[i].tex);
+        gl.uniform1f(U.u_a0, a0); gl.uniform1f(U.u_hover, i === hover ? 1 : 0);
+        gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+      }
+    }
+    // screen point -> card index (ray / cylinder intersection)
+    function pick(clientX, clientY) {
+      var r = cv.getBoundingClientRect();
+      var nx = ((clientX - r.left) / r.width) * 2 - 1, ny = 1 - ((clientY - r.top) / r.height) * 2;
+      var yaw = (small ? -0.05 : -0.12), roll = small ? -0.02 : -0.035;
+      var dx = nx * TX, dy = ny * TY, dz = -1;
+      var cr = Math.cos(-roll), sr = Math.sin(-roll); var dx1 = dx * cr - dy * sr, dy1 = dx * sr + dy * cr;
+      var cy = Math.cos(-yaw), sy = Math.sin(-yaw); var dx2 = dx1 * cy - dz * sy, dz2 = dx1 * sy + dz * cy;
+      var t = R / Math.sqrt(dx2 * dx2 + dz2 * dz2), X = dx2 * t, Z = dz2 * t, Y = dy1 * t;
+      var phi = Math.atan2(X, -Z);
+      if (Math.abs(Y) > H * 0.6) return -1;
+      for (var i = 0; i < cards.length; i++) { var a0 = i * stepAngle() - pos - S / 2; if (phi >= a0 && phi <= a0 + S) return i; }
+      return -1;
+    }
+    dStage.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".filter-pill")) return;
+      dragging = true; moved = 0; lastX = e.clientX; dStage.classList.add("dragging");
+    });
+    window.addEventListener("pointermove", function (e) {
+      if (!dragging) { if (e.pointerType === "mouse" && e.target.closest && e.target.closest("#drumStage")) { hover = pick(e.clientX, e.clientY); dStage.style.cursor = hover >= 0 ? "pointer" : ""; } return; }
+      var dx = e.clientX - lastX; lastX = e.clientX; moved += Math.abs(dx);
+      drag -= dx / cv.clientWidth * (small ? 2.2 : 1.8);
+    });
+    window.addEventListener("pointerup", function (e) {
+      if (!dragging) return; dragging = false; dStage.classList.remove("dragging");
+      if (moved < 8) { var i = pick(e.clientX, e.clientY); if (i >= 0) openCollection(cards[i].c.id); }
+    });
+    window.addEventListener("pointercancel", function () { dragging = false; dStage.classList.remove("dragging"); });
+    dStage.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") drag += stepAngle(); if (e.key === "ArrowLeft") drag -= stepAngle(); if (e.key === "Enter") { var ci = clamp(Math.round(pos / stepAngle()), 0, cards.length - 1); openCollection(cards[ci].c.id); } });
+    dStage.tabIndex = 0;
+    setTimeout(setup, 0);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setup(); });
+    return { frame: frame, resize: setup };
+  })();
+  var glDrum = null;
 
   // Filter pill
   var fBtn = $("#filterBtn"), fMenu = $("#filterMenu");
@@ -1287,29 +1530,13 @@ function IMG(p){return (window.KT_IMGMAP&&KT_IMGMAP[p])||p;}
     $$(".d-card", drum).forEach(function (r) { var show = !f || r.getAttribute("data-g") === f; r.classList.toggle("gone", !show); if (show) n++; });
     $("#colCount").textContent = "(0" + n + ")";
     fMenu.hidden = true; fBtn.setAttribute("aria-expanded", "false");
-    measureDrum();
-    var top = drumSec.getBoundingClientRect().top + window.scrollY;
-    if (window.scrollY > top + 200) window.scrollTo({ top: top + 40, behavior: "smooth" });
+    sizeTrack();
+    var top = dTrack.getBoundingClientRect().top + window.scrollY;
+    if (window.scrollY > top) window.scrollTo({ top: top, behavior: "auto" });
   });
 
-  // Shavings / flakes
-  var shv = $("#shavings"), sctx = shv.getContext("2d"), flakes = [], flakeVel = 0;
-  function sizeShv() { var dpr = Math.min(2, window.devicePixelRatio || 1); shv.width = shv.clientWidth * dpr; shv.height = shv.clientHeight * dpr; sctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-  sizeShv(); window.addEventListener("resize", sizeShv);
-  for (var fi = 0; fi < 26; fi++) flakes.push({ x: Math.random(), y: Math.random(), s: 3 + Math.random() * 7, r: Math.random() * 6.28, vr: (Math.random() - .5) * .03, vy: .0004 + Math.random() * .0008, sway: Math.random() * 6.28, c: ["#C9A77E", "#B98B5A", "#DCC3A1", "#E8DCC9"][fi % 4] });
-  function drawShavings(vel) {
-    var w = shv.clientWidth, h = shv.clientHeight; sctx.clearRect(0, 0, w, h);
-    flakeVel += (vel - flakeVel) * 0.1;
-    flakes.forEach(function (f) {
-      f.y += f.vy - flakeVel * 0.00045; f.sway += 0.01; f.r += f.vr + flakeVel * 0.002;
-      if (f.y > 1.05) f.y = -0.05; if (f.y < -0.05) f.y = 1.05;
-      var x = f.x * w + Math.sin(f.sway) * 18, y = f.y * h;
-      sctx.save(); sctx.translate(x, y); sctx.rotate(f.r); sctx.globalAlpha = .75;
-      sctx.fillStyle = f.c; sctx.beginPath(); sctx.ellipse(0, 0, f.s, f.s * .38, 0, 0, Math.PI * 2); sctx.fill();
-      sctx.strokeStyle = "rgba(120,80,40,.35)"; sctx.lineWidth = .6; sctx.beginPath(); sctx.arc(0, 0, f.s * .6, .3, 2.2); sctx.stroke();
-      sctx.restore();
-    });
-  }
+  // (flakes removed in the dark carousel)
+
 
   /* =============== DRAG WORLD =============== */
   var world = $("#world"), wInner = $("#worldInner");
@@ -1741,8 +1968,8 @@ function IMG(p){return (window.KT_IMGMAP&&KT_IMGMAP[p])||p;}
     }
     // gift images parallax
     gs.forEach(function (g, n) { var rr = g.getBoundingClientRect(); var off = (rr.top + rr.height / 2 - vh / 2) / vh; g.style.setProperty("--gy", (off * (n === 1 ? -70 : n === 2 ? 50 : -30)).toFixed(1) + "px"); });
-    drumFrame(vh, vel);
-    var dsr = drumSec.getBoundingClientRect(); if (dsr.bottom > 0 && dsr.top < vh && !reduce) drawShavings(vel);
+    if (carousel) carousel.frame();
+    
     // footer word rises
     var fr = footWord.parentNode.getBoundingClientRect();
     footWord.style.setProperty("--fw", (clamp((fr.top - vh * 0.55) / (vh * 0.45), 0, 1) * 60).toFixed(1) + "%");
